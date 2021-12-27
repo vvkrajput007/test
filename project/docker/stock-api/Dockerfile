@@ -8,7 +8,7 @@ ENV CGO_ENABLED="0"
 #  - src/stock-api/restore.sh
 #  - src/stock-api/build.sh
 #  you'll need to make the files executable first with chmod +x <filename>.
-WORKDIR /usr/api
+WORKDIR /go/stock-api
 COPY src/stock-api/. .
 RUN chmod +x restore.sh && ./restore.sh
 RUN chmod +x build.sh && ./build.sh

@@ -6,7 +6,7 @@ FROM maven:3.6.3-jdk-11 AS builder
 #  - src/products-api/restore.sh
 #  - src/products-api/build.sh
 #  you'll need to make the files executable first with chmod +x <filename>.
-WORKDIR /user/api/
+WORKDIR /usr/src/api
 COPY src/products-api/. .
 RUN chmod +x restore.sh && ./restore.sh
 RUN chmod +x build.sh  && ./build.sh
@@ -16,7 +16,7 @@ RUN chmod +x build.sh  && ./build.sh
 # The app should run on OpenJDK 11.0.12, it can use a minimal OS. 
 FROM openjdk:11.0.12-jre-slim-buster
 WORKDIR /app
-COPY --from=builder  /user/api/target/products-api-0.1.0.jar .
+COPY --from=builder  /usr/src/api/target/products-api-0.1.0.jar .
 
 EXPOSE 80
 ENTRYPOINT ["java", "-jar", "/app/products-api-0.1.0.jar"]

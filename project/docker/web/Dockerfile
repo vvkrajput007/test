@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine  AS builder
 #  - src/web/restore.sh
 #  - src/web/build.sh
 #  you'll need to make the files executable first with chmod +x <filename>.
-WORKDIR /dot
+WORKDIR /src
 COPY src/web/ .
 RUN chmod +x restore.sh && ./restore.sh
 RUN chmod +x build.sh && ./build.sh
@@ -26,6 +26,6 @@ ENV DOTNET_VERSION="6.0"\
 # The startup command needs to run the DLL from the build:
 #  dotnet Widgetario.Web.dll
 
-ENTRYPOINT ["dotnet", "/appss/Widgetario.Web.dll"]
-WORKDIR /appss
+ENTRYPOINT ["dotnet", "/app/Widgetario.Web.dll"]
+WORKDIR /app
 COPY --from=builder /out/ .

@@ -1,1 +1,35 @@
 # TODO
+services:
+  products-db:
+    image: ${REPOSITORY:-widgetario}/products-db:${RELEASE:-21.12}-${BUILD_NUMBER:-0}
+    build:
+      dockerfile: docker/db/Dockerfile
+      context: ../
+    networks:
+      - app-net      
+  products-api: 
+    image: ${REPOSITORY:-widgetario}/products-api:${RELEASE:-21.12}-${BUILD_NUMBER:-0}
+    build:
+      dockerfile: docker/products-api/Dockerfile
+      context: ../
+    networks:
+      - app-net
+  stock-api:
+    image: ${REPOSITORY:-widgetario}/stock-api:${RELEASE:-21.12}-${BUILD_NUMBER:-0}
+    build:
+      dockerfile: docker/stock-api/Dockerfile
+      context: ../
+    networks:
+      - app-net
+  web:
+    image: ${REPOSITORY:-widgetario}/web:${RELEASE:-21.12}-${BUILD_NUMBER:-0}
+    build:
+      dockerfile: docker/web/Dockerfile
+      context: ../
+    networks:
+      - app-net
+    ports:
+      - "8080:80"
+
+networks:
+  app-net:

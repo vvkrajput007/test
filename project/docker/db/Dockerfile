@@ -5,7 +5,7 @@ FROM postgres:11.6-alpine
 
 # There's an init script which populates the reference data that we need to include:
 #  - src/db/init-products-db.sh
-COPY ./src/db/init-products-db.sh /docker_postgress/
+COPY src/db/init-products-db.sh /docker-entrypoint-initdb.d/
 # Your base image should make it easy to run that script as part of the container startup.
 
 ENV POSTGRES_PASSWORD=widgetario
